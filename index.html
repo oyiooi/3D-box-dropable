@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='zh'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width,initial-scale=1.0'>
+        <title>3D盒子</title>
+        <link rel='stylesheet' href='./style.css'>
+    </head>
+    <body>
+        <div class='wrap'>
+            <div class='cube'>
+                <div class='side font'>Font</div>
+                <div class='side back'>back</div>
+                <div class='side left'>left</div>
+                <div class='side right'>right</div>
+                <div class='side top'>top</div>
+                <div class='side bottom'>bottom</div>
+            </div>
+        </div>
+        <script>
+           //获取cube
+           var x,y,isdrop=false,
+               container=document.getElementsByClassName('cube').item(0);
+
+               container.addEventListener('mousedown',function(event){
+                isdrop=true;
+                x=event.clientX;
+                y=event.clientY;
+                //console.log(x);
+            })
+
+            document.addEventListener('mousemove',function(event){
+                if(isdrop){
+                    var movex=event.clientX-x,movey=event.clientY-y,
+                    currentx=parseFloat(document.defaultView.getComputedStyle(container,null).left),
+                    currenty=parseFloat(document.defaultView.getComputedStyle(container,null).top);
+
+                    console.log(currentx,movex,currenty,movey);
+
+                    container.style.left=currentx+movex+'px';
+                    container.style.top=currenty+movey+'px';
+                    x=event.clientX;y=event.clientY;
+                    console.log(container.style.left,container.style.top)
+                }else{
+                    return;
+                }
+            })
+
+            document.addEventListener('mouseup',function(){
+                isdrop=false;
+                console.log(100);
+            })
+        </script>
+    </body>  
+</html>
